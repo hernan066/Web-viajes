@@ -3,7 +3,7 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box;/*lo bordes del contenedor hijo siempre queda dentro del borde del padre*/
   font-family: "Poppins", sans-serif;
 }
 /****************************header*********************/
@@ -69,11 +69,29 @@ header .navigation{
     flex-direction: column;
     background: #2696E9;
   }
+
+  /*aca se agrega un fondo arriba que le da opacidad*/
+  .home:before{
+    z-index: 777;
+    content: '';
+    position: absolute;
+    background: rgba(3, 96, 251, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
   .home .content{
       z-index: 888;
       color: white;
       width: 70%;
       margin-top: 50px;
+      display: none; /*solo se ve el activo*/
+  }
+
+  /*solo se ve el contenido activo*/
+  .home .content.active{
+    display: block;
   }
   .home .content h1{
     font-size: 4em;
@@ -82,6 +100,7 @@ header .navigation{
     letter-spacing: 5px;
     line-height: 75px;
     margin-bottom: 40px;
+    text-shadow: 0px 0px 3px black;
   }
   .home .content h1 span{
     font-size: 1.2em;
@@ -89,6 +108,7 @@ header .navigation{
   }
   .home .content p{
     margin-bottom: 65px;
+    text-shadow: 0px 0px 3px black;
   }
   .home .content a{
     background: #fff;
@@ -98,6 +118,7 @@ header .navigation{
     font-weight: 500;
     text-decoration: none;
     border-radius: 2px;
+    
   }
   .home .media-icons{
       z-index: 888;
@@ -111,6 +132,7 @@ header .navigation{
     color: #fff;
     font-size: 1.6em;
     transition: 0.5s ease;
+    text-shadow: 0px 0px 2px black;
   }
   
   /* esta es nueva excluye al ultimo hijo*/
@@ -120,3 +142,55 @@ header .navigation{
   .home .media-icons a:hover{
     transform: scale(1.3);
   }
+/****************************home video*********************/
+  .home video{
+    z-index: 000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+/****************************slider*********************/
+  .slider-navigation{
+    z-index: 888;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(80px);
+    margin-bottom: 12px;
+  }
+  
+  .slider-navigation .nav-btn{
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+    transition: 0.3s ease;
+  }
+  .slider-navigation .nav-btn.active{
+    background: #2696E9;
+  }
+/*aplicar margen a todos, menos al ultimo*/
+  .slider-navigation .nav-btn:not(:last-child){
+    margin-right: 20px;
+  }
+  .slider-navigation .nav-btn:hover{
+    transform: scale(1.2);
+  }
+
+
+.video-slide{
+  position: absolute;
+  width: 100%;
+  clip-path: circle(0% at 0 50%); /*sacado de clip path maker*/
+}
+.video-slide.active{
+  clip-path: circle(150% at 0 50%);/*sacado de clip path maker*/
+  transition: 2s ease;
+  transition-property: clip-path;
+}
